@@ -1,0 +1,55 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <link href="~/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/css/style.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+
+    <header class="p-3 text-bg-header">
+        <div class="container">
+            <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+
+
+
+                @{ if (User.Identity is not null && User.Identity.IsAuthenticated)
+                    {
+
+                        <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+                            <li class="nav-link px-2 text-dark"></li>
+                        </ul>
+
+                        <div class="text-end px-4 text-dark">@(User.Identity.Name ?? "")</div>
+                        <div class="text-end">
+                            <button type="button" onclick="location.href='@Url.Action("Logout", "Account")'" class="btn btn-outline-dark me-2">Log out</button>
+                        </div>
+                    }
+                    else
+                    {
+                        <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+                            <li></li>
+                        </ul>
+                        <div class="text-end">
+                            <button type="button" onclick="location.href='@Url.Action("Login", "Account")'" class="btn btn-outline-dark me-2">Log in</button>
+                            <button type="button" onclick="location.href='@Url.Action("Signup", "Account")'" class="btn btn-outline-dark">Sign up</button>
+                        </div>
+                    }
+
+                }
+
+            </div>
+        </div>
+    </header>
+
+    @RenderBody()
+
+
+
+    <script src="~/js/bootstrap.min.js"></script>
+    <script src="~/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
+

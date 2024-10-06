@@ -1,0 +1,51 @@
+﻿body {
+    background: rgb(233, 236, 255);
+    margin: 10px;
+}
+
+
+.text-bg-header {
+    background: rgb(225, 230, 255);
+    margin-bottom: 30px;
+}
+
+.wholediv {
+    width: 100px;
+    height: 100px;
+    background-color: #efefef;
+}
+
+    .wholediv a {
+        width: 100px;
+        height: 100px;
+        display: block;
+        background-color: pink;
+    }
+
+
+.members-sidebar {
+    width: 200px;
+    position: absolute;
+    margin-left: 0px;
+    height: 1000px;
+    text-align: center;
+}
+
+.records {
+    position: relative;
+    margin-left: 240px;
+}
+
+.dropdown {
+    position: relative;
+}
+
+.members-table {
+    position: relative;
+    margin-left: 400px;
+}
+
+.aims-table {
+    position: relative;
+    margin-left: 100px;
+}

@@ -1,0 +1,59 @@
+﻿@model AddParticipantViewModel
+
+<main class="form-signin w-50 m-auto mt-10">
+    <button type="button" onclick="location.href='@Url.Action("AddParticipant", "Participants")'" class="btn btn-outline-secondary me-2">Back</button>
+    <form method="post">
+        <h3 class="h3 mb-3 fw-normal text-center">Please log in</h3>
+
+
+        <div class="form-group">
+            <label asp-for="Name" class="control-label"></label>
+            <input asp-for="Name" class="form-control" id="floatingInput" type="text" />
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+        <div class="form-group ">
+            <label asp-for="Surname" class="control-label"></label>
+            <input asp-for="Surname" class="form-control" type="text" />
+            <span asp-validation-for="Surname" class="text-danger"></span>
+        </div>
+        <div class="form-group ">
+            <label asp-for="Age" class="control-label"></label>
+            <input asp-for="Age" class="form-control" type="text" />
+            <span asp-validation-for="Age" class="text-danger"></span>
+        </div>
+
+
+        <div class="form-group mb-3">
+            <input asp-for="Gender" type="radio" name="Male" value="@Gender.Male">
+            <label for="Male">Male</label><br>
+            <input asp-for="Gender" type="radio" name="Female" value="@Gender.Female">
+            <label for="Female">Female</label><br>
+
+            <span asp-validation-for="Gender" class="text-danger"></span>
+        </div>
+
+
+        <div class="form-group mb-3">
+            <input asp-for="IsPassenger" type="checkbox" />
+            <label asp-for="IsPassenger" value="IsPassenger" class="control-label">Passenger</label>
+            <span asp-validation-for="IsPassenger" class="text-danger"></span>
+        </div>
+
+
+        <div class="form-group">
+            <label asp-for="Position" class="control-label">Position (only for crew members)</label>
+            <input asp-for="Position" class="form-control" id="floatingInput" type="text" />
+            <span asp-validation-for="Position" class="text-danger"></span>
+        </div>
+
+
+        <div class="form-group text-center">
+            <input type="submit" value="Add participant" class="btn btn-primary" />
+
+        </div>
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+
+    </form>
+</main>
+

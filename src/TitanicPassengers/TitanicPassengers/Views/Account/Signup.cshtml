@@ -1,0 +1,33 @@
+﻿@model AccountViewModel
+
+<main class="form-signin w-50 m-auto mt-10">
+    <button type="button" onclick="location.href='@Url.Action("GetAllParticipants", "Participants")'" class="btn btn-outline-secondary me-2">Back</button>
+    <form method="post">
+        <h3 class="h3 mb-3 fw-normal text-center">Please sign up</h3>
+
+
+        <div class="form-group">
+            <label asp-for="Login" class="control-label"></label>
+            <input asp-for="Login" class="form-control" id="floatingInput" />
+            <span asp-validation-for="Login" class="text-danger"></span>
+        </div>
+        <div class="form-group mb-3">
+            <label asp-for="Password" class="control-label"></label>
+            <input asp-for="Password" class="form-control" />
+            <span asp-validation-for="Password" class="text-danger"></span>
+        </div>
+
+
+        <div class="form-group text-center">
+            <input type="submit" value="Sign up" class="btn btn-primary" />
+
+        </div>
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+        <div class="text-center mt-5">
+            @Html.ActionLink("Already have account? Log in", "Login", "Account")
+        </div>
+
+    </form>
+</main>
+

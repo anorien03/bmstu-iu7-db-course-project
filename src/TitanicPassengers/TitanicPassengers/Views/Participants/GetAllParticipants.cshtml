@@ -1,0 +1,71 @@
+﻿@model ParticipantsListViewModel
+
+@{ Status? status = null;}
+
+
+<div class="participants-table">
+
+    @if (Model.Role != null)
+    {
+        <div class="dropdown mb-4">
+            <button class="btn btn-outline-dark dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                Filter status
+            </button>
+
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                <li><a class="dropdown-item" asp-controller="Participants" asp-action="GetAllParticipants">-</a></li>
+                <li><a class="dropdown-item" asp-controller="Participants" asp-action="GetAllParticipants" asp-route-status=@Status.Survived>Survived</a></li>
+                <li><a class="dropdown-item" asp-controller="Participants" asp-action="GetAllParticipants" asp-route-status=@Status.Victim>Victim</a></li>
+
+
+            </ul>
+        </div>
+    }
+
+
+<div class="row mb-2 text-center">
+    <div class="col-2 themed-grid-col border border-secondary">Name</div>
+    <div class="col-3 themed-grid-col border border-secondary ">Surname</div>
+    <div class="col-1 themed-grid-col border border-secondary ">Age</div>
+    <div class="col-1 themed-grid-col border border-secondary ">Gender</div>
+    <div class="col-1 themed-grid-col border border-secondary ">Status</div>
+</div>
+    @{
+
+        foreach (var p in Model.Participants.Where(p => (status != null ? (p.ParticipantStatus != null && p.ParticipantStatus.Status == status) : true)))
+        {
+        <div class="row mb-1 text-center">
+            <div class="col-2 themed-grid-col border border-1 bg-light">@p.Name</div>
+            <div class="col-3 themed-grid-col border border-1 bg-light">@p.Surname</div>
+            <div class="col-1 themed-grid-col border border-1 bg-light">@p.Age</div>
+            <div class="col-1 themed-grid-col border border-1 bg-light">@p.Gender</div>
+            <div class="col-1 themed-grid-col border border-1 bg-light">@(p.ParticipantStatus != null ? p.ParticipantStatus.Status : "-")</div>
+
+            @{
+                if (Model.Role != null)
+                {
+                    <button type="button" onclick="location.href='@Url.Action("GetParticipant", "ParticipantPage", new {id = p.Id})'" class="btn btn-outline-dark me-2 col-1 themed-grid-col ms-3">Details</button>
+                }
+
+                if (Model.Role == Role.Admin)
+                {
+                    <button type="button" onclick="location.href='@Url.Action("RemoveParticipant", "Participants", new {id = p.Id})'" class="btn btn-outline-dark me-2 col-1 themed-grid-col ms-3">Remove</button>
+                }
+
+
+            }
+
+        </div>
+        }
+
+
+    }
+
+    @if (Model.Role == Role.Admin)
+{
+<div class="mt-4">
+    <button type="button" onclick="location.href='@Url.Action("AddParticipant", "Participants")'" class="btn btn-outline-dark me-2">New participant</button>
+</div>
+}
+    
+</div>
