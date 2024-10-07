@@ -1,0 +1,46 @@
+﻿@model RelativesViewModel
+
+
+<div class="relatives-table">
+    <h3 class="h3 mb-3 fw-normal mt-5">Close relatives</h3>
+    <div class="row mb-2 text-center">
+        <div class="col-2 themed-grid-col border border-secondary">Name</div>
+        <div class="col-3 themed-grid-col border border-secondary ">Surname</div>
+        <div class="col-2 themed-grid-col border border-secondary ">Birthday</div>
+        <div class="col-2 themed-grid-col border border-secondary ">Gender</div>
+    </div>
+    @{
+
+        foreach (var relative in Model.Relatives)
+        {
+            <div class="row mb-1 text-center">
+                <div class="col-2 themed-grid-col border border-1 bg-light">@relative.Name</div>
+                <div class="col-3 themed-grid-col border border-1 bg-light">@relative.Surname</div>
+                <div class="col-2 themed-grid-col border border-1 bg-light">@relative.Birthday</div>
+                <div class="col-2 themed-grid-col border border-1 bg-light">@relative.Gender</div>
+
+                @{
+                    if (Model.Role == Role.Admin)
+                    {
+                        <button type="button" onclick="location.href='@Url.Action("UpdateRelative", "Relatives", new {id = relative.Id})'" class="btn btn-outline-dark me-2 col-1 themed-grid-col ms-3">Update</button>
+                        <button type="button" onclick="location.href='@Url.Action("RemoveRelative", "Relatives", new {id = relative.Id})'" class="btn btn-outline-dark me-2 col-1 themed-grid-col ms-3">Remove</button>
+                    }
+
+
+                }
+
+            </div>
+        }
+
+
+    }
+
+    @if (Model.Role == Role.Admin)
+    {
+        <div class="mt-4">
+            <button type="button" onclick="location.href='@Url.Action("AddRelative", "Relatives")'" class="btn btn-outline-dark me-2">New relative</button>
+        </div>
+    }
+
+</div>
+

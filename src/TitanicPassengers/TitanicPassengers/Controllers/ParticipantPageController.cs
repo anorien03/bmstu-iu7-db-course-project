@@ -465,7 +465,7 @@ namespace TitanicPassengers.Controllers
                 try
                 {
                     Role? role = roleString != null ? Enum.Parse<Role>(roleString.Value) : null;
-                    await _participantRepository.RemoveAsync(id, relativeId, role);
+                    await _participantRepository.RemoveRelativeAsync(id, relativeId, role);
                     return RedirectToAction("GetParticipant", "ParticipantPage", new { id = id });
                 }
                 catch (Exception)

@@ -40,12 +40,29 @@
     position: relative;
 }
 
-.members-table {
-    position: relative;
-    margin-left: 400px;
-}
-
-.aims-table {
+.participants-table {
     position: relative;
     margin-left: 100px;
+}
+
+.lifeboats-table {
+    position: relative;
+    margin-left: 250px;
+}
+
+
+.bodies-table {
+    position: relative;
+    margin-left: 250px;
+}
+
+
+.relatives-table {
+    position: relative;
+    margin-left: 150px;
+}
+
+.users-table {
+    position: relative;
+    margin-left: 300px;
 }

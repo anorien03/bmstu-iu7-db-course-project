@@ -72,7 +72,35 @@ namespace TitanicPassengers.Repositories
         }
 
 
-		public async Task<List<User>> GetAllAsync(Role? role)
+        public async Task GiveAdminRightsAsync(int id, Role? role)
+        {
+            var context = _contextFactory.GetDbContext(role);
+            var user = await context.Users.FindAsync(id);
+
+            if (user != null)
+            {
+                user.Role = Role.Admin;
+
+                await context.SaveChangesAsync();
+            }
+        }
+
+
+        public async Task TakeAdminRightsAsync(int id, Role? role)
+        {
+            var context = _contextFactory.GetDbContext(role);
+            var user = await context.Users.FindAsync(id);
+
+            if (user != null)
+            {
+                user.Role = Role.User;
+
+                await context.SaveChangesAsync();
+            }
+        }
+
+
+        public async Task<List<User>> GetAllAsync(Role? role)
 		{
             var context = _contextFactory.GetDbContext(role);
 			return await context.Users.ToListAsync();

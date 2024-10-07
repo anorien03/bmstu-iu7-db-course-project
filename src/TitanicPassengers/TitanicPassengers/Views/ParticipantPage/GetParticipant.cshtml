@@ -2,7 +2,7 @@
 
 <div class="container">
     <button type="button" onclick="location.href='@Url.Action("GetAllParticipants", "Participants")'" class="btn btn-outline-secondary me-2">Back</button>
-    <h3 class="h3 mb-3 fw-normal mt-5">Participant information</h3>
+    <h4 class="h4 mb-3 fw-normal mt-3">Participant information</h4>
     <div class="row mb-2 text-center">
         <div class="col-3 themed-grid-col border border-secondary">Name</div>
         <div class="col-3 themed-grid-col border border-secondary ">Surname</div>
@@ -28,7 +28,7 @@
     @{
         if (Model.Participant.Position != null)
         {
-            <h3 class="h3 mb-3 fw-normal mt-5">Crew member information</h3>
+            <h4 class="h4 mb-3 fw-normal mt-5">Crew member information</h4>
             <div class="row mb-2 text-center">
                 <div class="col-5 themed-grid-col border border-secondary">Position</div>
             </div>
@@ -44,7 +44,7 @@
         }
         else
         {
-            <h3 class="h3 mb-3 fw-normal mt-5">Passenger information</h3>
+            <h4 class="h4 mb-3 fw-normal mt-5">Passenger information</h4>
             if (Model.Passenger != null)
             {
                 <div class="row mb-2 text-center">
@@ -79,10 +79,10 @@
 
 
 
-        <h3 class="h3 mb-3 fw-normal mt-5">Status</h3>
+        <h4 class="h4 mb-3 fw-normal mt-5">Status</h4>
         if (Model.Status != null)
         {
-            <div class="row mb-2 text-center">
+            <div class="row mb-3 text-center">
                 <div class="col-3 themed-grid-col border border-secondary">Status</div>
                 <div class="col-4 themed-grid-col border border-secondary">Lifeboat number</div>
                 <div class="col-4 themed-grid-col border border-secondary">Body number</div>
@@ -96,7 +96,7 @@
 
             if (Model.Lifeboat != null)
             {
-                <h5 class="h5 mb-3 fw-normal mt-2">Lifeboat information</h5>
+                <h5 class="h5 mb-3 fw-normal mt-4">Lifeboat information</h5>
                 <div class="row mb-2 text-center">
                     <div class="col-4 themed-grid-col border border-secondary">Boat</div>
                     <div class="col-3 themed-grid-col border border-secondary">Max count of people</div>
@@ -112,7 +112,7 @@
 
             if (Model.Body != null)
             {
-                <h5 class="h5 mb-3 fw-normal mt-2">Body information</h5>
+                <h5 class="h5 mb-3 fw-normal mt-4">Body information</h5>
                 <div class="row mb-2 text-center">
                     <div class="col-3 themed-grid-col border border-secondary">Boat</div>
                     <div class="col-3 themed-grid-col border border-secondary">Date</div>
@@ -141,7 +141,7 @@
         }
 
 
-        <h3 class="h3 mb-3 fw-normal mt-5">Close relatives</h3>
+        <h4 class="h4 mb-3 fw-normal mt-5">Close relatives</h4>
 
         <div class="row mb-2 text-center">
             <div class="col-3 themed-grid-col border border-secondary">Name</div>

@@ -17,10 +17,16 @@
 
                 @{ if (User.Identity is not null && User.Identity.IsAuthenticated)
                     {
-
-                        <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-                            <li class="nav-link px-2 text-dark"></li>
-                        </ul>
+                                <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+                                    <li><a asp-controller="Lifeboats" asp-action="GetAllLifeboats" class="nav-link px-2 text-dark">Lifeboats</a></li>
+                                    <li><a asp-controller="Bodies" asp-action="GetAllBodies" class="nav-link px-2 text-dark">Bodies</a></li>
+                                    <li><a asp-controller="Relatives" asp-action="GetAllRelatives" class="nav-link px-2 text-dark">Relatives</a></li>
+                                    <li><a asp-controller="Participants" asp-action="GetAllParticipants" class="nav-link px-2 text-dark">Participants</a></li>
+                                    @if (User.FindFirst("Role") != null && User.FindFirst("Role").Value.Equals("Admin"))
+                                    {
+                                        <li><a asp-controller="Users" asp-action="GetAllUsers" class="nav-link px-2 text-dark">Users</a></li>
+                                    }
+                                </ul>
 
                         <div class="text-end px-4 text-dark">@(User.Identity.Name ?? "")</div>
                         <div class="text-end">

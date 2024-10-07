@@ -1,0 +1,45 @@
+﻿@model UsersViewModel
+
+
+<div class="users-table">
+    <h3 class="h3 mb-3 fw-normal mt-5">Users</h3>
+    <div class="row mb-2 text-center">
+        <div class="col-2 themed-grid-col border border-secondary">Id</div>
+        <div class="col-3 themed-grid-col border border-secondary ">Login</div>
+        <div class="col-2 themed-grid-col border border-secondary ">Role</div>
+    </div>
+    @{
+
+        foreach (var body in Model.Users)
+        {
+            <div class="row mb-1 text-center">
+                <div class="col-2 themed-grid-col border border-1 bg-light">@body.Id</div>
+                <div class="col-3 themed-grid-col border border-1 bg-light">@body.Login</div>
+                <div class="col-2 themed-grid-col border border-1 bg-light">@body.Role</div>
+
+                @{
+                    if (Model.Role == Role.Admin)
+                    {
+                        if (body.Role == Role.User)
+                        {
+                            <button type="button" onclick="location.href='@Url.Action("GiveAdminRights", "Users", new {id = body.Id})'" class="btn btn-outline-dark me-2 col-2 themed-grid-col ms-3">Make admin</button>
+                            <button type="button" onclick="location.href='@Url.Action("RemoveUser", "Users", new {id = body.Id})'" class="btn btn-outline-dark me-2 col-1 themed-grid-col ms-3">Remove</button>
+                        }
+                        else
+                        {
+                            <button type="button" onclick="location.href='@Url.Action("TakeAdminRights", "Users", new {id = body.Id})'" class="btn btn-outline-dark me-2 col-2 themed-grid-col ms-3">Take admin rights</button>
+                        }
+
+                    }
+
+
+                }
+
+            </div>
+        }
+
+
+    }
+
+</div>
+

@@ -15,43 +15,65 @@ namespace TitanicPassengers.Repositories
         }
 
 
-        public async Task<int> AddAsync(int participantId, CloseRelative closeRelative, Role? role)
+        public async Task<int> AddAsync(CloseRelative closeRelative, Role? role)
         {
             var context = _contextFactory.GetDbContext(role);
-            var participant = await context.Participants.FindAsync(participantId);
-            if (participant == null)
-                throw new InvalidDataException("Participant doesn't exist");
-            else
+            await context.CloseRelatives.AddAsync(closeRelative);
+            await context.SaveChangesAsync();
+            return closeRelative.Id;
+        }
+
+
+        public async Task RemoveAsync(int id, Role? role)
+        {
+            var context = _contextFactory.GetDbContext(role);
+
+            var relative = await context.CloseRelatives.FindAsync(id);
+            if (relative != null)
             {
-                await context.CloseRelatives.AddAsync(closeRelative);
-                participant.CloseRelatives.Add(closeRelative);
+                context.CloseRelatives.Remove(relative);
                 await context.SaveChangesAsync();
-                return closeRelative.Id;
             }
         }
 
 
-        public async Task RemoveAsync(int participantId, int closeRelativeId, Role? role)
+        public async Task UpdateAsync(CloseRelative updatedRelative, Role? role)
         {
             var context = _contextFactory.GetDbContext(role);
-            var participant = await context.Participants.FindAsync(participantId);
-            if (participant == null)
-                throw new InvalidDataException("Participant doesn't exist");
+            var relative = await context.CloseRelatives.FindAsync(updatedRelative.Id);
 
-            var closeRelative = await context.CloseRelatives.FindAsync(closeRelativeId);
-            if (closeRelative == null)
-                throw new InvalidDataException("Close Relative doesn't exist");
+            if (relative != null)
+            {
+                relative.Name = updatedRelative.Name;
+                relative.Surname = updatedRelative.Surname;
+                relative.Birthday = updatedRelative.Birthday;
+                relative.Gender = updatedRelative.Gender;
 
-            participant.CloseRelatives.Remove(closeRelative);
-            await context.SaveChangesAsync();
+                await context.SaveChangesAsync();
+            }
         }
 
+
+        public async Task<CloseRelative> GetByIdAsync(int id, Role? role)
+        {
+            var context = _contextFactory.GetDbContext(role);
+            return await context.CloseRelatives.FindAsync(id) ?? throw new InvalidDataException("Relative not found");
+
+        }
 
         public async Task<CloseRelative> GetByNameAsync(string name, string surname, Role? role)
         {
             var context = _contextFactory.GetDbContext(role);
             return await context.CloseRelatives.FirstOrDefaultAsync(r => r.Name.Equals(name) && r.Surname.Equals(surname)) ?? throw new InvalidDataException("Relative not found");
             
+        }
+
+
+        public async Task<List<CloseRelative>> GetAllAsync(Role? role)
+        {
+            var context = _contextFactory.GetDbContext(role);
+            return await context.CloseRelatives.ToListAsync();
+
         }
 
 
