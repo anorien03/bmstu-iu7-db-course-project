@@ -82,6 +82,36 @@ namespace TitanicPassengers.Repositories
                 .Include(p => p.CloseRelatives).FirstOrDefaultAsync(p => p.Id == id) ?? throw new InvalidDataException();
 
         }
+
+
+        public async Task AddRelativeAsync(int id, CloseRelative relative, Role? role)
+        {
+            var context = _contextFactory.GetDbContext(role);
+
+            var participant = await context.Participants.Include(p => p.CloseRelatives).FirstOrDefaultAsync(p => p.Id == id);
+            
+            if (participant != null && participant.CloseRelatives.FirstOrDefault(c => c.Id == relative.Id) == null)
+            {
+                participant.CloseRelatives.Add(relative);
+                await context.SaveChangesAsync();
+            }
+            else
+                throw new InvalidDataException("Participant already has that relative");
+        }
+
+
+        public async Task RemoveAsync(int id, int relativeId, Role? role)
+        {
+            var context = _contextFactory.GetDbContext(role);
+
+            var participant = await context.Participants.Include(p => p.CloseRelatives).FirstOrDefaultAsync(p => p.Id == id);
+            var relative = await context.CloseRelatives.FindAsync(relativeId);
+            if (participant != null && relative != null)
+            {
+                participant.CloseRelatives.Remove(relative);
+                await context.SaveChangesAsync();
+            }
+        }
     }
 }
 

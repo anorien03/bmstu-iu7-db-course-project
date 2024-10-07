@@ -31,7 +31,7 @@ namespace TitanicPassengers.Models
 
         public Passenger? Passenger { get; set; }
 
-        public List<CloseRelative>? CloseRelatives { get; set; } = new();
+        public List<CloseRelative> CloseRelatives { get; set; } = new();
 
 
         public Participant(int id, string name, string surname, int age, Gender gender, string? position)

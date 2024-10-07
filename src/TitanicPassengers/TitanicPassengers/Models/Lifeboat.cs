@@ -32,12 +32,14 @@ namespace TitanicPassengers.Models
             SurvivedCount = survivedCount;
 		}
 
-        public Lifeboat(string boat, int maxCount, int survivedCount)
+        public Lifeboat(int id, string boat, int maxCount)
         {
+            Id = id;
             Boat = boat;
             MaxCount = maxCount;
-            SurvivedCount = survivedCount;
+            SurvivedCount = 0;
         }
+
     }
 }
 

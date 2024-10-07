@@ -24,7 +24,7 @@ namespace TitanicPassengers.Models
         [Column("gender")]
         public Gender Gender { get; set; }
 
-        public List<Participant>? Participants { get; set; } = new();
+        public List<Participant> Participants { get; set; } = new();
 
 
         public CloseRelative(int id, string name, string surname, DateOnly birthday, Gender gender)

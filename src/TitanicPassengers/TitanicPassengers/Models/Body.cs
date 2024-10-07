@@ -28,11 +28,6 @@ namespace TitanicPassengers.Models
 			Date = date;
 		}
 
-        public Body(string boat, DateOnly date)
-        {
-            Boat = boat;
-            Date = date;
-        }
     }
 }
 

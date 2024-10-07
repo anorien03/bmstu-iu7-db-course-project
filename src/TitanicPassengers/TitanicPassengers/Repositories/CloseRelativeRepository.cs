@@ -1,4 +1,5 @@
 ﻿using System;
+using Microsoft.EntityFrameworkCore;
 using TitanicPassengers.AppDbContext;
 using TitanicPassengers.Models;
 using TitanicPassengers.Models.Enums;
@@ -43,6 +44,14 @@ namespace TitanicPassengers.Repositories
 
             participant.CloseRelatives.Remove(closeRelative);
             await context.SaveChangesAsync();
+        }
+
+
+        public async Task<CloseRelative> GetByNameAsync(string name, string surname, Role? role)
+        {
+            var context = _contextFactory.GetDbContext(role);
+            return await context.CloseRelatives.FirstOrDefaultAsync(r => r.Name.Equals(name) && r.Surname.Equals(surname)) ?? throw new InvalidDataException("Relative not found");
+            
         }
 
 

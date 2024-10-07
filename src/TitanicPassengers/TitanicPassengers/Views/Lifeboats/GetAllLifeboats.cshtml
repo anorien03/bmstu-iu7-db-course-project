@@ -1,0 +1,45 @@
+﻿@model LifeboatsViewModel
+
+
+<div class="participants-table">
+
+    <div class="row mb-2 text-center">
+        <div class="col-2 themed-grid-col border border-secondary">Number</div>
+        <div class="col-3 themed-grid-col border border-secondary ">Boat</div>
+        <div class="col-1 themed-grid-col border border-secondary ">Count of survived</div>
+        <div class="col-1 themed-grid-col border border-secondary ">Max count</div>
+    </div>
+    @{
+
+        foreach (var body in Model.Lifeboats)
+        {
+        <div class="row mb-1 text-center">
+            <div class="col-2 themed-grid-col border border-1 bg-light">@body.Id</div>
+            <div class="col-3 themed-grid-col border border-1 bg-light">@body.Boat</div>
+            <div class="col-1 themed-grid-col border border-1 bg-light">@body.SurvivedCount</div>
+            <div class="col-1 themed-grid-col border border-1 bg-light">@body.MaxCount</div>
+
+            @{
+                if (Model.Role == Role.Admin)
+                {
+                    <button type="button" onclick="location.href='@Url.Action("UpdateLifeboat", "Lifeboats", new {id = body.Id})'" class="btn btn-outline-dark me-2 col-1 themed-grid-col ms-3">Update</button>
+                    <button type="button" onclick="location.href='@Url.Action("RemoveLifeboat", "Lifeboats", new {id = body.Id})'" class="btn btn-outline-dark me-2 col-1 themed-grid-col ms-3">Remove</button>
+                }
+
+
+            }
+
+        </div>
+        }
+
+
+    }
+
+    @if (Model.Role == Role.Admin)
+    {
+        <div class="mt-4">
+            <button type="button" onclick="location.href='@Url.Action("AddLifeboat", "Lifeboats")'" class="btn btn-outline-dark me-2">New lifeboat</button>
+        </div>
+    }
+
+</div>

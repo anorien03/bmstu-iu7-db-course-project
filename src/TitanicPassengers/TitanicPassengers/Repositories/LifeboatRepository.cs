@@ -19,6 +19,9 @@ namespace TitanicPassengers.Repositories
         {
             var context = _contextFactory.GetDbContext(role);
 
+            if (await context.Lifeboats.FindAsync(lifeboat.Id) != null)
+                throw new InvalidDataException("Lifeboat with that number already exists");
+
             await context.Lifeboats.AddAsync(lifeboat);
             await context.SaveChangesAsync();
             return lifeboat.Id;
@@ -53,10 +56,10 @@ namespace TitanicPassengers.Repositories
         }
 
 
-        public async Task<Lifeboat?> GetByIdAsync(int id, Role? role)
+        public async Task<Lifeboat> GetByIdAsync(int id, Role? role)
         {
             var context = _contextFactory.GetDbContext(role);
-            return await context.Lifeboats.FindAsync(id);
+            return await context.Lifeboats.FindAsync(id) ?? throw new InvalidDataException("Lifeboat not found");
 
         }
 

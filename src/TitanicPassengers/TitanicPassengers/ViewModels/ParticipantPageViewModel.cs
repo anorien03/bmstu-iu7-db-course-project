@@ -1,5 +1,6 @@
 ﻿using System;
 using TitanicPassengers.Models;
+using TitanicPassengers.Models.Enums;
 
 namespace TitanicPassengers.ViewModels
 {
@@ -11,11 +12,13 @@ namespace TitanicPassengers.ViewModels
 
 		public Passenger? Passenger { get; set; } = null;
 
-		public List<CloseRelative>? Relatives { get; set; } = new List<CloseRelative>();
+		public List<CloseRelative> Relatives { get; set; } = new List<CloseRelative>();
 
 		public Lifeboat? Lifeboat { get; set; } = null;
 
         public Body? Body { get; set; } = null;
+
+		public Role Role { get; set; }
     }
 }
 

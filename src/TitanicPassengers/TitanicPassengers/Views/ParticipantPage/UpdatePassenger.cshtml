@@ -1,0 +1,40 @@
+﻿@model AddPassengerViewModel
+
+<main class="form-signin w-50 m-auto mt-10">
+    <button type="button" onclick="location.href='@Url.Action("GetParticipant", "ParticipantPage", new {id = Model.Id})'" class="btn btn-outline-secondary me-2">Back</button>
+    <form method="post">
+        <h3 class="h3 mb-3 fw-normal text-center">Please fill in the form</h3>
+
+
+        <div class="form-group">
+            <label asp-for="Departure" class="control-label"></label>
+            <input asp-for="Departure" class="form-control" id="floatingInput" type="text" />
+            <span asp-validation-for="Departure" class="text-danger"></span>
+        </div>
+        <div class="form-group ">
+            <label asp-for="Destination" class="control-label"></label>
+            <input asp-for="Destination" class="form-control" type="text" />
+            <span asp-validation-for="Destination" class="text-danger"></span>
+        </div>
+
+        <div class="form-group mb-3">
+            <input asp-for="PassengerClass" type="radio" name="PassengerClass" value="@PassengerClass.First">
+            <label for="PassengerClass">First</label><br>
+            <input asp-for="PassengerClass" type="radio" name="PassengerClass" value="@PassengerClass.Second">
+            <label for="PassengerClass">Second</label><br>
+            <input asp-for="PassengerClass" type="radio" name="PassengerClass" value="@PassengerClass.Third">
+            <label for="PassengerClass">Third</label><br>
+
+            <span asp-validation-for="PassengerClass" class="text-danger"></span>
+        </div>
+
+        <div class="form-group text-center">
+            <input type="submit" value="Update" class="btn btn-primary" />
+
+        </div>
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+
+    </form>
+</main>
+

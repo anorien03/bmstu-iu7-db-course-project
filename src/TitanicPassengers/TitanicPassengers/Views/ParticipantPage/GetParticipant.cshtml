@@ -1,8 +1,174 @@
 ﻿@model ParticipantPageViewModel
 
 <div class="container">
-    <h1>Participant</h1>
-    <h3>Name:</h3><p>@Model.Participant.Name</p>
-    <h3>Surname:</h3><p>@Model.Participant.Surname</p>
+    <button type="button" onclick="location.href='@Url.Action("GetAllParticipants", "Participants")'" class="btn btn-outline-secondary me-2">Back</button>
+    <h3 class="h3 mb-3 fw-normal mt-5">Participant information</h3>
+    <div class="row mb-2 text-center">
+        <div class="col-3 themed-grid-col border border-secondary">Name</div>
+        <div class="col-3 themed-grid-col border border-secondary ">Surname</div>
+        <div class="col-2 themed-grid-col border border-secondary ">Age</div>
+        <div class="col-2 themed-grid-col border border-secondary ">Gender</div>
+    </div>
+
+    <div class="row mb-2 text-center">
+        <div class="col-3 themed-grid-col border border-1 bg-light">@Model.Participant.Name</div>
+        <div class="col-3 themed-grid-col border border-1 bg-light">@Model.Participant.Surname</div>
+        <div class="col-2 themed-grid-col border border-1 bg-light">@Model.Participant.Age</div>
+        <div class="col-2 themed-grid-col border border-1 bg-light">@Model.Participant.Gender</div>
+    </div>
+
+    @if (Model.Role == Role.Admin)
+    {
+        <button type="button" onclick="location.href='@Url.Action("UpdateParticipant", "ParticipantPage", new { id = Model.Participant.Id })'" class="btn btn-outline-dark me-2 col-1 themed-grid-col ms-3">Update</button>
+    }
+
+
+
+
+    @{
+        if (Model.Participant.Position != null)
+        {
+            <h3 class="h3 mb-3 fw-normal mt-5">Crew member information</h3>
+            <div class="row mb-2 text-center">
+                <div class="col-5 themed-grid-col border border-secondary">Position</div>
+            </div>
+
+            <div class="row mb-2 text-center">
+                <div class="col-5 themed-grid-col border border-1 bg-light">@(Model.Participant.Position ?? "undefined")</div>
+            </div>
+
+            @if (Model.Role == Role.Admin)
+            {
+                <button type="button" onclick="location.href='@Url.Action("UpdateParticipant", "ParticipantPage", new { id = Model.Participant.Id })'" class="btn btn-outline-dark me-2 col-1 themed-grid-col ms-3">Update info</button>
+            }
+        }
+        else
+        {
+            <h3 class="h3 mb-3 fw-normal mt-5">Passenger information</h3>
+            if (Model.Passenger != null)
+            {
+                <div class="row mb-2 text-center">
+                    <div class="col-3 themed-grid-col border border-secondary">Class</div>
+                    <div class="col-4 themed-grid-col border border-secondary">Departure</div>
+                    <div class="col-4 themed-grid-col border border-secondary">Destination</div>
+                </div>
+
+                <div class="row mb-2 text-center">
+                    <div class="col-3 themed-grid-col border border-1 bg-light">@Model.Passenger.PassengerClass</div>
+                    <div class="col-4 themed-grid-col border border-1 bg-light">@Model.Passenger.Departure</div>
+                    <div class="col-4 themed-grid-col border border-1 bg-light">@Model.Passenger.Destination</div>
+                </div>
+
+
+
+                @if (Model.Role == Role.Admin)
+                {
+                    <button type="button" onclick="location.href='@Url.Action("UpdatePassenger", "ParticipantPage", new { id = Model.Participant.Id })'" class="btn btn-outline-dark me-2 col-1 themed-grid-col ms-3">Update</button>
+                    <button type="button" onclick="location.href='@Url.Action("RemovePassenger", "ParticipantPage", new { id = Model.Participant.Id })'" class="btn btn-outline-dark me-2 col-1 themed-grid-col ms-3">Delete</button>
+                }
+
+            }
+            else
+            {
+                @if (Model.Role == Role.Admin)
+                {
+                    <button type="button" onclick="location.href='@Url.Action("AddPassenger", "ParticipantPage", new { id = Model.Participant.Id  })'" class="btn btn-outline-dark me-2 col-1 themed-grid-col ms-3">Add info</button>
+                }
+            }
+        }
+
+
+
+        <h3 class="h3 mb-3 fw-normal mt-5">Status</h3>
+        if (Model.Status != null)
+        {
+            <div class="row mb-2 text-center">
+                <div class="col-3 themed-grid-col border border-secondary">Status</div>
+                <div class="col-4 themed-grid-col border border-secondary">Lifeboat number</div>
+                <div class="col-4 themed-grid-col border border-secondary">Body number</div>
+            </div>
+
+            <div class="row mb-2 text-center">
+                <div class="col-3 themed-grid-col border border-1 bg-light">@Model.Status.Status</div>
+                <div class="col-4 themed-grid-col border border-1 bg-light">@(Model.Lifeboat != null ? Model.Lifeboat.Id : "-")</div>
+                <div class="col-4 themed-grid-col border border-1 bg-light">@(Model.Body != null ? Model.Body.Id : "-")</div>
+            </div>
+
+            if (Model.Lifeboat != null)
+            {
+                <h5 class="h5 mb-3 fw-normal mt-2">Lifeboat information</h5>
+                <div class="row mb-2 text-center">
+                    <div class="col-4 themed-grid-col border border-secondary">Boat</div>
+                    <div class="col-3 themed-grid-col border border-secondary">Max count of people</div>
+                    <div class="col-3 themed-grid-col border border-secondary">Count of survived</div>
+                </div>
+                <div class="row mb-2 text-center">
+                    <div class="col-4 themed-grid-col border border-1 bg-light">@Model.Lifeboat.Boat</div>
+                    <div class="col-3 themed-grid-col border border-1 bg-light">@(Model.Lifeboat.MaxCount)</div>
+                    <div class="col-3 themed-grid-col border border-1 bg-light">@(Model.Lifeboat.SurvivedCount)</div>
+                </div>
+            }
+
+
+            if (Model.Body != null)
+            {
+                <h5 class="h5 mb-3 fw-normal mt-2">Body information</h5>
+                <div class="row mb-2 text-center">
+                    <div class="col-3 themed-grid-col border border-secondary">Boat</div>
+                    <div class="col-3 themed-grid-col border border-secondary">Date</div>
+                </div>
+                <div class="row mb-2 text-center">
+                    <div class="col-3 themed-grid-col border border-1 bg-light">@Model.Body.Boat</div>
+                    <div class="col-3 themed-grid-col border border-1 bg-light">@(Model.Body.Date)</div>
+                </div>
+            }
+
+
+
+            @if (Model.Role == Role.Admin)
+            {
+                <button type="button" onclick="location.href='@Url.Action("UpdateStatus", "ParticipantPage", new { id = Model.Participant.Id })'" class="btn btn-outline-dark me-2 col-1 themed-grid-col ms-3">Update</button>
+                <button type="button" onclick="location.href='@Url.Action("RemoveStatus", "ParticipantPage", new { id = Model.Participant.Id })'" class="btn btn-outline-dark me-2 col-1 themed-grid-col ms-3">Delete</button>
+            }
+
+        }
+        else
+        {
+            @if (Model.Role == Role.Admin)
+            {
+                <button type="button" onclick="location.href='@Url.Action("AddStatus", "ParticipantPage", new { id = Model.Participant.Id  })'" class="btn btn-outline-dark me-2 col-1 themed-grid-col ms-3">Add info</button>
+            }
+        }
+
+
+        <h3 class="h3 mb-3 fw-normal mt-5">Close relatives</h3>
+
+        <div class="row mb-2 text-center">
+            <div class="col-3 themed-grid-col border border-secondary">Name</div>
+            <div class="col-3 themed-grid-col border border-secondary ">Surname</div>
+            <div class="col-2 themed-grid-col border border-secondary ">Birthday</div>
+            <div class="col-2 themed-grid-col border border-secondary ">Gender</div>
+        </div>
+
+        foreach (var relative in Model.Relatives)
+        {
+            <div class="row mb-2 text-center">
+                <div class="col-3 themed-grid-col border border-1 bg-light">@relative.Name</div>
+                <div class="col-3 themed-grid-col border border-1 bg-light">@relative.Surname</div>
+                <div class="col-2 themed-grid-col border border-1 bg-light">@relative.Birthday</div>
+                <div class="col-2 themed-grid-col border border-1 bg-light">@relative.Gender</div>
+
+                @if (Model.Role == Role.Admin)
+                {
+                    <button type="button" onclick="location.href='@Url.Action("RemoveRelative", "ParticipantPage", new { id = Model.Participant.Id, relativeId = relative.Id  })'" class="btn btn-outline-dark me-2 col-1 themed-grid-col ms-3">Remove</button>
+                }
+            </div>
+        }
+
+        @if (Model.Role == Role.Admin)
+        {
+            <button type="button" onclick="location.href='@Url.Action("AddRelative", "ParticipantPage", new { id = Model.Participant.Id })'" class="btn btn-outline-dark me-2 col-1 themed-grid-col ms-3">Add relative</button>
+        }
+    }
 </div>
 

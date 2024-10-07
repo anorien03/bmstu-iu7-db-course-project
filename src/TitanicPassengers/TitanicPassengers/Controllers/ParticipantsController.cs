@@ -30,9 +30,7 @@ namespace TitanicPassengers.Controllers
                 try
                 {
                     Role? role = roleString != null ? Enum.Parse<Role>(roleString.Value) : null;
-                    Console.WriteLine("\n\n\n\n\n\n\n");
                     model.Participants = await _participantRepository.GetAllAsync(role, status);
-                    Console.WriteLine("\n\n\n\n\n\n\n");
                     model.Role = role;
                     return View(model);
                 }
@@ -125,6 +123,9 @@ namespace TitanicPassengers.Controllers
             return View(model);
 
         }
+
+
+
     }
 }
 

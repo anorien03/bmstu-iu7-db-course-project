@@ -19,6 +19,7 @@ namespace TitanicPassengers.Repositories
             var context = _contextFactory.GetDbContext(role);
 
             await context.Passengers.AddAsync(passenger);
+
             await context.SaveChangesAsync();
             return passenger.ParticipantId;
         }
@@ -55,10 +56,10 @@ namespace TitanicPassengers.Repositories
 
 
 
-        public async Task<Passenger?> GetByIdAsync(int id, Role? role)
+        public async Task<Passenger> GetByIdAsync(int id, Role? role)
         {
             var context = _contextFactory.GetDbContext(role);
-            return await context.Passengers.FindAsync(id);
+            return await context.Passengers.FindAsync(id) ?? throw new InvalidDataException();
         }
     }
 }

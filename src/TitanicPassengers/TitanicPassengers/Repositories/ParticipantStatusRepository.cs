@@ -18,6 +18,18 @@ namespace TitanicPassengers.Repositories
         {
             var context = _contextFactory.GetDbContext(role);
 
+            if (participantStatus.Status == Status.Survived && participantStatus.BodyId != null)
+                throw new InvalidDataException("Survived person can't have body number");
+            if (participantStatus.Status == Status.Victim && participantStatus.LifeboatId != null)
+                throw new InvalidDataException("Victim can't have lifeboat number");
+
+            if (participantStatus.LifeboatId != null && await context.Lifeboats.FindAsync(participantStatus.LifeboatId) == null)
+                throw new InvalidDataException("Lifeboat doesn't exist");
+
+            if (participantStatus.BodyId != null && await context.Bodies.FindAsync(participantStatus.BodyId) == null)
+                throw new InvalidDataException("Body doesn't exist");
+
+
             await context.ParticipantStatuses.AddAsync(participantStatus);
             await context.SaveChangesAsync();
             return participantStatus.ParticipantId;
@@ -29,6 +41,11 @@ namespace TitanicPassengers.Repositories
         {
             var context = _contextFactory.GetDbContext(role);
             var participant = await context.ParticipantStatuses.FindAsync(updatedParticipantStatus.ParticipantId);
+
+            if (updatedParticipantStatus.Status == Status.Survived && updatedParticipantStatus.BodyId != null)
+                throw new InvalidDataException("Survived person can't have body number");
+            if (updatedParticipantStatus.Status == Status.Victim && updatedParticipantStatus.LifeboatId != null)
+                throw new InvalidDataException("Victim can't have lifeboat number");
 
             if (participant != null)
             {
@@ -55,10 +72,10 @@ namespace TitanicPassengers.Repositories
 
 
 
-        public async Task<ParticipantStatus?> GetByIdAsync(int id, Role? role)
+        public async Task<ParticipantStatus> GetByIdAsync(int id, Role? role)
         {
             var context = _contextFactory.GetDbContext(role);
-            return await context.ParticipantStatuses.FindAsync(id);
+            return await context.ParticipantStatuses.FindAsync(id) ?? throw new InvalidDataException();
         }
     }
 }

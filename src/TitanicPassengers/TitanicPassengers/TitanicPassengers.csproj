@@ -21,6 +21,8 @@
     <None Remove="Views\Account\" />
     <None Remove="Views\Participants\" />
     <None Remove="Views\ParticipantPage\" />
+    <None Remove="Views\Bodies\" />
+    <None Remove="Views\Lifeboats\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Models\" />
@@ -38,6 +40,8 @@
     <Folder Include="Views\Account\" />
     <Folder Include="Views\Participants\" />
     <Folder Include="Views\ParticipantPage\" />
+    <Folder Include="Views\Bodies\" />
+    <Folder Include="Views\Lifeboats\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.20" />
