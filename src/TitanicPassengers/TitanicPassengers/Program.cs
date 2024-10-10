@@ -23,7 +23,7 @@ builder.Services.AddDbContext<AdminAppDbContext>(
                 opt => opt.UseNpgsql(config.GetSection("Postgresql").GetConnectionString("AdminConnection")));
 builder.Services.AddDbContext<GuestDbContext>(
                 opt => opt.UseNpgsql(config.GetSection("Postgresql").GetConnectionString("DefaultConnection")));
-builder.Services.AddTransient<AppDbContextFactory>();
+builder.Services.AddTransient<IAppDbContextFactory ,AppDbContextFactory>();
 
 builder.Services.AddTransient<UserRepository>();
 builder.Services.AddTransient<ParticipantRepository>();
